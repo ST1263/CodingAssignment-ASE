@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JavaScript Reverse Sentence</title>
+
+</head>
+<body>
+<script type="text/javascript">
+	function reverseWordsInSentence(sentence) {
+    return sentence.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+}
+
+const inputSentence = "This is a sunny day";
+const reversed = reverseWordsInSentence(inputSentence);
+console.log(reversed);
+
+</script>
+</body>
+</html>
