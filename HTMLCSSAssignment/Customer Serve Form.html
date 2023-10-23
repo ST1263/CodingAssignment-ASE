@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Survey Form</title>
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Add your custom CSS styles here */
+    .container {
+      margin-top: 20px;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.4);
+    }
+
+    .popup-content {
+      background-color: #fff;
+      margin: 100px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center">Survey Form</h2>
+    <form id="surveyForm" onsubmit="return false">
+      <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Date of Birth:</label>
+        <input type="date" class="form-control" id="dob" required>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country:</label>
+        <select class="form-control" id="country" required>
+          <option value="">Select a country</option>
+          <!-- Add your country options here -->
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Gender:</label>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="gender" value="male" id="genderMale">
+          <label class="form-check-label" for="genderMale">Male</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="gender" value="female" id="genderFemale">
+          <label class="form-check-label" for "genderFemale">Female</label>
+        </div>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="gender" value="other" id="genderOther">
+          <label class="form-check-label" for="genderOther">Other</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="profession">Profession:</label>
+        <input type="text" class="form-control" id="profession" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="mobileNumber">Mobile Number:</label>
+        <input type="tel" class="form-control" id="mobileNumber" required>
+      </div>
+
+      <button type="submit" class="btn btn-primary" onclick="submitForm()">Submit</button>
+      <button type="button" class="btn btn-secondary" onclick="resetForm()">Reset</button>
+    </form>
+
+    <div id="popup" class="popup">
+      <div id="popupContent" class="popup-content">
+        <!-- Populated with submitted data using JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function submitForm() {
+      // Get form values
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const dob = document.getElementById('dob').value;
+      const country = document.getElementById('country').value;
+      const genderOptions = document.querySelectorAll('input[name="gender"]:checked');
+      const profession = document.getElementById('profession').value;
+      const email = document.getElementById('email').value;
+      const mobileNumber = document.getElementById('mobileNumber').value;
+
+      // Check if all required fields are filled
+      if (!firstName || !lastName || !dob || !country || genderOptions.length === 0 || !profession || !email || !mobileNumber) {
+        alert("Please fill out all required fields.");
+        return;
+      }
+
+      // Construct the popup content
+      let popupContent = `
+        <h2>Survey Form Submitted:</h2>
+        <p>First Name: ${firstName}</p>
+        <p>Last Name: ${lastName}</p>
+        <p>Date of Birth: ${dob}</p>
+        <p>Country: ${country}</p>
+        <p>Gender: ${Array.from(genderOptions).map(opt => opt.value).join(', ')}</p>
+        <p>Profession: ${profession}</p>
+        <p>Email: ${email}</p>
+        <p>Mobile Number: ${mobileNumber}</p>
+      `;
+
+      // Display the popup
+      document.getElementById('popupContent').innerHTML = popupContent;
+      document.getElementById('popup').style.display = 'block';
+
+      // Reset the form
+      document.getElementById('surveyForm').reset();
+    }
+
+    function resetForm() {
+      document.getElementById('surveyForm').reset();
+    }
+
+    // Close the popup
+    window.onclick = function(event) {
+      const popup = document.getElementById('popup');
+      if (event.target == popup) {
+        popup.style.display = "none";
+      }
+    }
+  </script>
+
+  <!-- Include Bootstrap JS and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
